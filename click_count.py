@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 token = os.getenv("BIT_TOKEN")
-long_url = "https://xkcd.com/178/"
 
 
 def shorten_link(token, long_url):
@@ -23,8 +22,13 @@ def shorten_link(token, long_url):
     r = requests.post(url, headers=headers, json=data)
     r.raise_for_status()
 
-    print(r.json())
+    results = r.json()
+    bitlink = results["link"]
+
+    return bitlink
 
 
 if __name__ == "__main__":
-    shorten_link(token=token, long_url=long_url)
+    long_url = input("Enter your link: ")
+    bitlink = shorten_link(token=token, long_url=long_url)
+    print("Your shortened link:", bitlink)
