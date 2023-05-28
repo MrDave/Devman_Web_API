@@ -8,6 +8,9 @@ token = os.getenv("BIT_TOKEN")
 
 
 def shorten_link(token, long_url):
+    link_test = requests.get(long_url)
+    link_test.raise_for_status()
+
     url = "https://api-ssl.bitly.com/v4/shorten"
     headers = {
         "Authorization": f"Bearer {token}",
@@ -30,5 +33,9 @@ def shorten_link(token, long_url):
 
 if __name__ == "__main__":
     long_url = input("Enter your link: ")
-    bitlink = shorten_link(token=token, long_url=long_url)
+    try:
+        bitlink = shorten_link(token=token, long_url=long_url)
+    except requests.exceptions.HTTPError as error:
+        exit(f"Invalid link: \n{error}")
+
     print("Your shortened link:", bitlink)
