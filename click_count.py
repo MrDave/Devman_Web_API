@@ -1,6 +1,7 @@
 import requests
 import os
 from dotenv import load_dotenv
+from urllib.parse import urlparse
 
 
 load_dotenv()
@@ -31,11 +32,32 @@ def shorten_link(token, long_url):
     return bitlink
 
 
+def count_clicks(token, bitlink):
+
+    link_test = requests.get(bitlink)
+    link_test.raise_for_status()
+
+    p = urlparse(bitlink)
+    url = f"https://api-ssl.bitly.com/v4/bitlinks/{p.netloc + p.path}/clicks/summary"
+    headers = {
+        "Authorization": f"Bearer {token}",
+    }
+    params = (
+        ("unit", "day"),
+        ("units", "-1"),
+    )
+
+    r = requests.get(url, headers=headers, params=params)
+    r.raise_for_status()
+    
+    return r.json()["total_clicks"]
+
+
 if __name__ == "__main__":
-    long_url = input("Enter your link: ")
+    bitlink = input("Enter full bitlink: ")
     try:
-        bitlink = shorten_link(token=token, long_url=long_url)
+        clicks = count_clicks(token=token, bitlink=bitlink)
     except requests.exceptions.HTTPError as error:
         exit(f"Invalid link: \n{error}")
 
-    print("Your shortened link:", bitlink)
+    print(f"The link was clicked exactly {clicks} time(s)")
