@@ -53,11 +53,29 @@ def count_clicks(token, bitlink):
     return r.json()["total_clicks"]
 
 
-if __name__ == "__main__":
-    bitlink = input("Enter full bitlink: ")
+def is_bitlink(url):
+
+    p = urlparse(url)
+    if p.netloc == "bit.ly":
+        return True
+    else:
+        return False
+
+
+def main():
+    user_link = input("Enter your link: ")
     try:
-        clicks = count_clicks(token=token, bitlink=bitlink)
+        if is_bitlink(user_link):
+            result = count_clicks(token=token, bitlink=user_link)
+            print(f"The link is a bitlink and was clicked exactly {result} time(s)")
+
+        else:
+            result = shorten_link(token=token, long_url=user_link)
+            print(f"Your link wasn't a bitlink, but now it is!\nHere is it: {result}")
+
     except requests.exceptions.HTTPError as error:
         exit(f"Invalid link: \n{error}")
 
-    print(f"The link was clicked exactly {clicks} time(s)")
+
+if __name__ == "__main__":
+    main()
