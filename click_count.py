@@ -66,7 +66,7 @@ def main():
             print(f"Your link wasn't a bitlink, but now it is!\nHere is it: {short_link}")
 
     except requests.exceptions.HTTPError as error:
-        exit(f"Invalid link: \n{error}")
+        raise (f"Invalid link: \n{error}")
 
 
 if __name__ == "__main__":
