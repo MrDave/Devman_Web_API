@@ -17,6 +17,29 @@ Use `pip` (or `pip3`, if there is a conflict with Python2) to install dependenci
 pip install -r requirements.txt
 ```
 
+### Using the program
+
+Run click_count.py  
+```
+python3 click_count.py
+```
+When asked, enter either a regular link or a bitlink
+```
+Enter your link: https://dvmn.org/
+```
+```
+Enter your link: https://bit.ly/1a2b3c4
+```
+
+Get a shortened link
+```
+Your link wasn't a bitlink, but now it is!
+Here is it: https://bit.ly/1a2b3c4
+```
+or a total click count of a bitlink
+```
+The link is a bitlink and was clicked exactly 4 time(s)
+```
 ### Project Goals
 
 This code was written for educational purposes as part of an online course for web developers at [dvmn.org](https://dvmn.org/).
