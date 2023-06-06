@@ -17,18 +17,14 @@ Use `pip` (or `pip3`, if there is a conflict with Python2) to install dependenci
 pip install -r requirements.txt
 ```
 
+Using virtual environment [virtualenv/venv](https://docs.python.org/3/library/venv.html) for project isolation 
+
 ### Using the program
 
-Run click_count.py  
+Run click_count.py with a link as an argument 
 ```
-python3 click_count.py
-```
-When asked, enter either a regular link or a bitlink
-```
-Enter your link: https://dvmn.org/
-```
-```
-Enter your link: https://bit.ly/1a2b3c4
+python3 click_count.py https://dvmn.org/
+python3 click_count.py https://bit.ly/1a2b3c4
 ```
 
 Get a shortened link
